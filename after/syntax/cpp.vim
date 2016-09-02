@@ -79,6 +79,11 @@ if exists('g:cpp_experimental_template_highlight') && g:cpp_experimental_templat
                 \contains=cppOperator,cCustomOperator,cCustomAngleBracketStart 
 endif
 
+syntax keyword cppScopeOutStatement return
+syntax keyword cppScopeOutStatement break
+syntax keyword cppScopeOutStatement continue
+syntax keyword cppScopeOutStatement throw
+
 " Alternative syntax that is used in:
 "  http://www.vim.org/scripts/script.php?script_id=3064
 "syn match cUserFunction "\<\h\w*\>\(\s\|\n\)*("me=e-1 contains=cType,cDelimiter,cDefine

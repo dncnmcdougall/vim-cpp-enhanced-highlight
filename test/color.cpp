@@ -1,9 +1,4 @@
 
-The<A<B<C>>>  
-The<A<a<a>
-The<Aa<a>a<A
-tiger>
-
 AClass::b AClass::getThing(Fred f);
 AClass::b AClass::getThing(Fred<T> f);
 AClass::b AClass::getThing<T>(Fred f);
@@ -51,7 +46,6 @@ AClass::b getThing<T<t>>(Fred<T> f);
 AClass::b getThing<T<t>::List>(Fred<T> f);
 AClass::b getThing<T<B<T>::List>::List>(Fred<T> f);
 
-Aclass<T> getThing<f>(Fred)
 
 AClass<T>::b getThing(Fred f);
 AClass<T>::b getThing(Fred<T> f);
@@ -62,9 +56,14 @@ AClass<T>::b getThing<T<t>>(Fred<T> f);
 AClass<T>::b getThing<T<t>::List>(Fred<T> f);
 AClass<T>::b getThing<T<B<T>::List>::List>(Fred<T> f);
 
+getThing(Fred f);
 getThing<T>(Fred f);
 getThing<T>(Fred<T> f);
 getThing<T>(Fred<T>::List f);
+
+AClass getThing<T>(Fred)
+AClass<T> getThing<T>(Fred)
+AClass<T<B>::List> getThing<T>(Fred)
 
 AClass::AClass::getThing(Fred<T> f);
 AClass::badClass::getThing(Fred<T> f);
