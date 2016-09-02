@@ -31,44 +31,39 @@
 " Based on the discussion in:
 "   http://stackoverflow.com/questions/736701/class-function-names-highlighting-in-vim
 " -----------------------------------------------------------------------------
-"
-
-" Class and namespace scope
-if exists('g:cpp_class_scope_highlight') && g:cpp_class_scope_highlight
-     syn match    cCustomScope    "::"
-    " syn match    cCustomClass    "\w\+\s*::" 
-                " \contains=cCustomScope 
-    " hi def link cCustomClass Function  " disabled for now
-    syn match   cCustomClass     "\<\w\+\>\s*(\@!"
-endif
 
 " Functions
 syn match   cCustomParen    "(" contains=cParen contains=cCppParen
-syn match   cCustomFunc     "\<\w\+\>\s*(\@="
+syn match   cCustomFunc     "\w\+\s*(\@="
 hi def link cCustomFunc  Function
+
+" Class and namespace scope
+if exists('g:cpp_class_scope_highlight') && g:cpp_class_scope_highlight
+    syn match    cCustomScope    "::"
+    syn match    cCustomClass    "\w\+\s*::" 
+                \contains=cCustomScope 
+    " hi def link cCustomClass Function  " disabled for now
+    syn match   cCustomClass    "\<\u\w*\s*\>" 
+endif
 
 " Template functions
 if exists('g:cpp_experimental_template_highlight') && g:cpp_experimental_template_highlight
 
-    syn region cCustomAngleBracketOuter matchgroup=cCustomAngleBracketContent start="<" excludenl end=">" contained 
-        \contains=cCustomAngleBracketOuter,cCustomAngleBracketInner oneline keepend
-    syn region cCustomAngleBracketInner matchgroup=cCustomAngleBracketContent start="<" excludenl end=">" contained 
-        \contains=CCustomAngleBracketInner extend oneline keepend display transparent
-    hi def link cCustomAngleBracketOuter  cCustomAngleBracketContent
-    " hi def link cCustomAngleBracketInner  cCustomAngleBracketContent
+    syn match   cCustomAngleBracketStart "<\_[^;()]\{-}>" contained 
+                \contains=cCustomAngleBracketStart, cCustomAngleBracketEnd
+    hi def link cCustomAngleBracketStart  cCustomAngleBracketContent
 
-    syn match   cCustomTemplateClass "\<\w\+.*" contained 
-                \contains=cCustomAngleBracketOuter
-    syn match   cCustomTemplateFunc "\<\w\+.*(" contained 
-                \contains=cCustomAngleBracketOuter
-    hi def link cCustomTemplateClass cCustomClass
+    syn match   cCustomAngleBracketEnd ">\_[^<>;()]\{-}>" contained 
+                \contains=cCustomAngleBracketEnd
+    hi def link cCustomAngleBracketEnd  cCustomAngleBracketContent
+
+    syn match cCustomTemplateFunc "\<\l\w*\s*<\_[^;()]\{-}>(\@="hs=s,he=e-1 
+                \contains=cCustomAngleBracketStart
     hi def link cCustomTemplateFunc  cCustomFunc
 
-    syn region cCustomTemplateType start="\<\w\+<" excludenl end=">\s*(\?" keepend oneline 
-                \contains=cCustomTemplateFunc,cCustomTemplateClass
-                " \transparent
-    hi def link cCustomTemplateType  cCustomTemplate
-
+    syn match    cCustomTemplateClass    "\<\w\+\s*<\_[^;()]\{-}>" 
+                \contains=cCustomAngleBracketStart,cCustomTemplateFunc 
+    hi def link cCustomTemplateClass cCustomClass
 
 
     " Remove 'template' from cppStructure and use a custom match
@@ -87,11 +82,8 @@ if exists('g:cpp_experimental_template_highlight') && g:cpp_experimental_templat
 
     syn match   cCustomOperator "\<operator\>" 
     hi def link cCustomOperator  cppStructure
-
-    syn match   cOperatorDeclare "\<operator\s*[+-\*\\|&^<>]=\?" 
-                \contains=cppOperator,cCustomOperator,
-    syn match   cTemplateOperatorDeclare "\<operator\s*<.\{-}>\@=[+-\*\\|&^<>]=\?" 
-                \contains=cppOperator,cCustomOperator,cCustomAngleBracketOuter 
+    syn match   cTemplateOperatorDeclare "\<operator\_s*<\_[^;()]\{-}>[<>]=\?" 
+                \contains=cppOperator,cCustomOperator,cCustomAngleBracketStart 
 endif
 
 " Alternative syntax that is used in:
