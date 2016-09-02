@@ -18,9 +18,16 @@
 " -----------------------------------------------------------------------------
 "  Highlight function names.
 " -----------------------------------------------------------------------------
-syn match    cCustomParen    "(" contains=cParen contains=cCppParen
-syn match    cCustomFunc     "\w\+\s*(\@=" contains=cCustomParen
-hi def link cCustomFunc  Function
+syn match   cCustomFunc "\w\+\s*(\@=" contains=cParen,cCppParen
+hi def link cCustomFunc Function
+
+" -----------------------------------------------------------------------------
+"  Highlight member variable names.
+" -----------------------------------------------------------------------------
+syn match   cCustomDot    "\." contained
+syn match   cCustomPtr    "->" contained
+syn match   cCustomMemVar "\(\.\|->\)\w\+" contains=cCustomDot,cCustomPtr
+hi def link cCustomMemVar Function
 
 " -----------------------------------------------------------------------------
 "  Source: aftersyntaxc.vim
@@ -247,6 +254,12 @@ syn keyword	cAnsiName	STDC FP_CONTRACT
 syn keyword	cAnsiName	and bitor not_eq xor
 syn keyword	cAnsiName	and_eq compl or xor_eq
 syn keyword	cAnsiName	bitand not or_eq
+
+" SIGPROCMASK(2)
+syn keyword cConstant SIG_BLOCK SIG_UNBLOCK SIG_SETMASK
+" SIGACTION(2)
+syn keyword cConstant SA_NOCLDSTOP SA_NOCLDWAIT SA_NODEFER SA_ONSTACK
+syn keyword cConstant SA_RESETHAND SA_RESTART SA_RESTORER SA_SIGINFO
 
 hi def link cAnsiFunction cFunction
 hi def link cAnsiName cIdentifier

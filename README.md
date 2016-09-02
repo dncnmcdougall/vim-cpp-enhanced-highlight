@@ -6,9 +6,9 @@ development in Vim. Compared to the standard syntax highlighting for C++ it
 adds highlighting of (user defined) functions and the containers and types in
 the standard library / boost.
 
-Development is done at: http://github.com/octol/vim-cpp-enhanced-highlight
+Forked from: http://github.com/octol/vim-cpp-enhanced-highlight
 
-![Screenshot](http://www.haeggblad.com/vim/screenshot.png)
+![Screenshot](http://zachwhaleys.website/images/vim-cpp-enhanced-highlighting.png)
 
 Optional features
 -----------------
@@ -29,10 +29,17 @@ Installation instructions
 -------------------------
 Follow one of the sets of directions below and reload vim afterwards.
 
+#### Plug
+Install using [vim-plug](https://github.com/junegunn/vim-plug) by adding
+```vim
+Plug 'zachwhaley/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+```
+to .vimrc and run `:PlugInstall`.
+
 #### Vundle
 Instal using [vundle](https://github.com/gmarik/Vundle.vim) by adding
 ```vim
-Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'zachwhaley/vim-cpp-enhanced-highlight'
 ```
 to .vimrc and run `:PluginInstall`.
 
@@ -42,14 +49,14 @@ If you have [pathogen](https://github.com/tpope/vim-pathogen) installed,
 and you prefer to use git submodules, run
 ```sh
 cd ~/.vim
-git submodule add https://github.com/octol/vim-cpp-enhanced-highlight.git bundle/syntax/
+git submodule add https://github.com/zachwhaley/vim-cpp-enhanced-highlight.git bundle/syntax/
 ```
 
 #### Manual installation
 If you don't have either Vundle or Pathogen installed, copy the cpp.vim file
 (optionally also c.vim) to .vim/after/syntax.
 ```sh
-git clone https://github.com/octol/vim-cpp-enhanced-highlight.git /tmp/vim-cpp-enhanced-highlight
+git clone https://github.com/zachwhaley/vim-cpp-enhanced-highlight.git /tmp/vim-cpp-enhanced-highlight
 mkdir -p ~/.vim/after/syntax/
 mv /tmp/vim-cpp-enhanced-highlight/after/syntax/cpp.vim ~/.vim/after/syntax/cpp.vim
 rm -rf /tmp/vim-cpp-enhanced-highlight
@@ -72,7 +79,3 @@ Background information
 - http://www.vim.org/scripts/script.php?script_id=2224
 - http://www.vim.org/scripts/script.php?script_id=1640
 - http://www.vim.org/scripts/script.php?script_id=3064
-
-Jon Haggblad <jon@haeggblad.com>
-
-Last update: 21 September 2014

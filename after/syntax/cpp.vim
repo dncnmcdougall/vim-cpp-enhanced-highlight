@@ -32,18 +32,11 @@
 "   http://stackoverflow.com/questions/736701/class-function-names-highlighting-in-vim
 " -----------------------------------------------------------------------------
 
-" Functions
-syn match   cCustomParen    "(" contains=cParen contains=cCppParen
-syn match   cCustomFunc     "\w\+\s*(\@="
-hi def link cCustomFunc  Function
-
 " Class and namespace scope
 if exists('g:cpp_class_scope_highlight') && g:cpp_class_scope_highlight
-    syn match    cCustomScope    "::"
-    syn match    cCustomClass    "\w\+\s*::" 
-                \contains=cCustomScope 
-    " hi def link cCustomClass Function  " disabled for now
-    syn match   cCustomClass    "\<\u\w*\s*\>" 
+    syn match   cCustomScope "::" contained
+    syn match   cCustomClass "\w\+\s*::" contains=cCustomScope
+    hi def link cCustomClass Function
 endif
 
 " Template functions
@@ -105,10 +98,6 @@ syn cluster cppSTLgroup     contains=cppSTLfunction,cppSTLfunctional,cppSTLconst
 "   http://www.vim.org/scripts/script.php?script_id=1640
 " -----------------------------------------------------------------------------
 syntax keyword cppSTLconstant badbit
-syntax keyword cppSTLconstant cerr
-syntax keyword cppSTLconstant cin
-syntax keyword cppSTLconstant clog
-syntax keyword cppSTLconstant cout
 syntax keyword cppSTLconstant digits
 syntax keyword cppSTLconstant digits10
 syntax keyword cppSTLconstant eofbit
@@ -137,10 +126,6 @@ syntax keyword cppSTLconstant radix
 syntax keyword cppSTLconstant round_style
 syntax keyword cppSTLconstant tinyness_before
 syntax keyword cppSTLconstant traps
-syntax keyword cppSTLconstant wcerr
-syntax keyword cppSTLconstant wcin
-syntax keyword cppSTLconstant wclog
-syntax keyword cppSTLconstant wcout
 syntax keyword cppSTLexception bad_alloc
 syntax keyword cppSTLexception bad_array_new_length
 syntax keyword cppSTLexception bad_exception
@@ -536,6 +521,10 @@ syntax keyword cppSTLfunction wprintf
 syntax keyword cppSTLfunction write
 syntax keyword cppSTLfunction wscanf
 syntax keyword cppSTLios boolalpha
+syntax keyword cppSTLios cerr
+syntax keyword cppSTLios cin
+syntax keyword cppSTLios clog
+syntax keyword cppSTLios cout
 syntax keyword cppSTLios dec
 syntax keyword cppSTLios defaultfloat
 syntax keyword cppSTLios endl
@@ -570,6 +559,10 @@ syntax keyword cppSTLios showpos
 syntax keyword cppSTLios skipws
 syntax keyword cppSTLios unitbuf
 syntax keyword cppSTLios uppercase
+syntax keyword cppSTLios wcerr
+syntax keyword cppSTLios wcin
+syntax keyword cppSTLios wclog
+syntax keyword cppSTLios wcout
 "syntax keyword cppSTLios ws
 syntax keyword cppSTLiterator back_insert_iterator
 syntax keyword cppSTLiterator bidirectional_iterator
@@ -622,6 +615,7 @@ syntax keyword cppSTLtype const_mem_fun_ref_t
 syntax keyword cppSTLtype const_mem_fun_t
 syntax keyword cppSTLtype const_pointer
 syntax keyword cppSTLtype const_reference
+syntax keyword cppSTLtype container_type
 syntax keyword cppSTLtype deque
 syntax keyword cppSTLtype difference_type
 syntax keyword cppSTLtype div_t
@@ -1385,7 +1379,7 @@ if version >= 508 || !exists("did_cpp_syntax_inits")
   HiLink cppSTLfunction     Function
   HiLink cppSTLfunctional   Typedef
   HiLink cppSTLconstant     Constant
-  HiLink cppSTLnamespace    Constant
+  HiLink cppSTLnamespace    Typedef
   HiLink cppSTLtype         Typedef
   HiLink cppSTLexception    Exception
   HiLink cppSTLiterator     Typedef
