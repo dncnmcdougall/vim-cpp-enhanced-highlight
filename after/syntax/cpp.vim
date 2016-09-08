@@ -83,6 +83,7 @@ syntax keyword cppScopeOutStatement return
 syntax keyword cppScopeOutStatement break
 syntax keyword cppScopeOutStatement continue
 syntax keyword cppScopeOutStatement throw
+hi def link cppScopeOutStatement cStatement
 
 " Alternative syntax that is used in:
 "  http://www.vim.org/scripts/script.php?script_id=3064
